@@ -17,7 +17,7 @@ jobs:
       - name: checkout to repo
         uses: actions/checkout@v2
       - name: start
-        with:
+        env:
           scriptFile: ${{ github.event.inputs.script-file }}
           partCount: ${{ github.event.inputs.part-count }}
           runId: ${{ github.run_id }}
