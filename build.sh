@@ -17,11 +17,11 @@ WORKDIR /k6
 
 ADD ${SCRIPT_FILE} ./script.js
 
-RUN printf \"#! /bin/bash\n\nk6 run ./script.js && curl -v 'https://enpolat-k6-testing.free.beeceptor.com/api/k6-test?build_id=${BUILD_ID}&part=$1'\" > run.sh
+RUN printf \"#! /bin/bash\n\nk6 run ./script.js && curl -v 'https://enpolat-k6-testing.free.beeceptor.com/api/k6-test?build_id=${BUILD_ID}&part=\${PART}'\" > run.sh
 
 RUN chmod +x ./run.sh
 
-ENTRYPOINT [\"./run.sh\", \"$PART\"]
+ENTRYPOINT [\"./run.sh\"]
 " | docker build --tag enpolatacr.azurecr.io/k6:${BUILD_ID} -
 
 docker push enpolatacr.azurecr.io/k6:${BUILD_ID}
