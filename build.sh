@@ -1,6 +1,5 @@
 SCRIPT_FILE=$1
 BUILD_ID=$2
-PART=$3
 
 echo "
 FROM ubuntu

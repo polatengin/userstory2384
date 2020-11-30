@@ -28,6 +28,9 @@ jobs:
         run: |
           ACR_PASSWORD=$(az acr credential show --name enpolatacr --query "passwords[0].value" --output tsv)
           docker login enpolatacr.azurecr.io --username enpolatacr --password ${ACR_PASSWORD}
-          ./build.sh ${scriptFile} ${runId} 1
+          ./build.sh ${scriptFile} ${runId}
 
-          docker run -dit enpolatacr.azurecr.io/k6:${runId}
+          for (( iLoop=1; iLoop<=5; iLoop++ ))
+          do
+            docker run -dit -e "PART=${iLoop}" enpolatacr.azurecr.io/k6:${runId}
+          done
