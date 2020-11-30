@@ -1,0 +1,25 @@
+name: start
+
+on:
+  workflow_dispatch:
+    inputs:
+      script-file:
+        description: 'Script File'
+        required: true
+      part-count:
+        description: 'Part Count'
+        required: true
+
+jobs:
+  start-job:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: checkout to repo
+        uses: actions/checkout@v2
+      - name: start
+        with:
+          scriptFile: ${{ github.event.inputs.script-file }}
+          partCount: ${{ github.event.inputs.part-count }}
+          runId: ${{ github.run_id }}
+        run: |
+          ./build.sh ${scriptFile} ${runId} 1
