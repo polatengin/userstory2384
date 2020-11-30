@@ -17,7 +17,7 @@ WORKDIR /k6
 
 ADD ${SCRIPT_FILE} ./script.js
 
-RUN printf \"#! /bin/bash\n\nk6 run ./script.js\n\ncurl -v \"https://enpolat-k6-testing.free.beeceptor.com/api/k6-test?build_id=${BUILD_ID}&part=1\"\n\" > run.sh
+RUN printf \"#! /bin/bash\n\nk6 run ./script.js\n\ncurl -v 'https://enpolat-k6-testing.free.beeceptor.com/api/k6-test?build_id=${BUILD_ID}&part=1'\n\" > run.sh
 
 RUN chmod +x ./run.sh
 
